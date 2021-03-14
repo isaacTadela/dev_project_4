@@ -32,7 +32,7 @@ stages {
     stage('build image') {
         steps {
 			dir("dev_project_3b"){
-              bat 'docker build -t iitzhakk/dev_proj_4b /dev_project_3b'
+              bat 'docker build -t iitzhakk/dev_proj_4b .'
           }
 		}
     }
