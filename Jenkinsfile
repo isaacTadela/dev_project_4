@@ -11,6 +11,7 @@ stages {
         steps {
             bat 'pip install -r requirements.txt'
 			bat 'start /min python rest_app.py'
+			bat 'dir'
         }
     }
     stage('testing backend') {
