@@ -45,6 +45,7 @@ stages {
     stage('Deploy Image') {
       steps{
         script {
+		  bat 'docker tag dev_proj_4b:latest dev_proj_4b:env.$BUILD_NUMBER'
 		  dockerImage = docker.build registry + ":$BUILD_NUMBER"
           docker.withRegistry( '', registryCredential ) {
            dockerImage.push("$BUILD_NUMBER")
@@ -61,7 +62,7 @@ stages {
 
 
               bat 'docker build -t iitzhakk/dev_proj_4b .'
-			  bat 'docker tag dev_proj_4b:latest dev_proj_4b:$BUILD_NUMBER'
+			  bat 'docker tag dev_proj_4b:latest dev_proj_4b:env.$BUILD_NUMBER'
               bat 'docker push -q iitzhakk/dev_proj_4b'			  
           }
 		}
