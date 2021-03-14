@@ -40,12 +40,13 @@ stages {
 			  bat "echo IMAGE_TAG=${env.BUILD_NUMBER}>.env"
 			  bat "more .env"
 			  }
-			  
+		script{
 			dockerImage = docker.build registry + ":$BUILD_NUMBER"
 			docker.withRegistry('', registryCredential) {
-			dockerImage.push()
-          }
-		}
+			dockerImage.push()	
+			 }
+            }
+		  }
     }
     stage('docker-compose up') {
         steps {
