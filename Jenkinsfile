@@ -1,7 +1,7 @@
 pipeline {
 environment {
 	registry = "iitzhakk/dev_proj_4b"
-	registryCredential = 'docker_hub'
+	registryCredential = 'docker hub credentials'
 	dockerImage = ''
 	}
 agent any
