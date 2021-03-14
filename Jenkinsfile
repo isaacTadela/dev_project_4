@@ -10,18 +10,19 @@ stages {
     stage('rest app') {
         steps {
 			bat 'cd dev_project_3b'
+			bat 'dir'
             bat 'pip install -r requirements.txt'
-			bat 'start /min python rest_app.py'
+			bat 'start /min dev_project_3b/python rest_app.py'
         }
     }
     stage('testing backend') {
         steps {
-			bat 'python backend_testing.py'
+			bat 'dev_project_3b/python backend_testing.py'
         }
     }
     stage('clean environment') {
         steps {
-            bat 'python clean_environment.py'
+            bat 'dev_project_3b/python clean_environment.py'
         }
     }
     stage('build image') {
