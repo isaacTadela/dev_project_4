@@ -40,7 +40,7 @@ stages {
 			  bat "echo IMAGE_TAG=${env.BUILD_NUMBER}>.env"
 			  bat "more .env"
               bat 'docker build -t iitzhakk/dev_proj_4b .'
-			  bat 'docker tag dev_proj_4b:latest dev_proj_4b:env.$BUILD_NUMBER'
+			 //bat 'docker tag dev_proj_4b:latest dev_proj_4b:env.$BUILD_NUMBER'
               bat 'docker push -q iitzhakk/dev_proj_4b'			  			  
 			  }
 		  }
