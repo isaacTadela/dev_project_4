@@ -44,7 +44,7 @@ stages {
     stage('push image') {
         steps {
 			dir("dev_project_3b"){
-			  bat 'docker tag -t iitzhakk/dev_proj_4b:latest iitzhakk/dev_proj_4b:${env.BUILD_NUMBER}'
+			  bat 'docker tag iitzhakk/dev_proj_4b:latest iitzhakk/dev_proj_4b:${env.BUILD_NUMBER}'
               bat 'docker push -q iitzhakk/dev_proj_4b'
           }
 		}
