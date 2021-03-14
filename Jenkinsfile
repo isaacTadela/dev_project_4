@@ -34,36 +34,21 @@ stages {
           }
 		}
     }
-    stage('build and push image') {
+    stage('Deploy image') {
         steps {
 			dir("dev_project_3b"){
 			  bat "echo IMAGE_TAG=${env.BUILD_NUMBER}>.env"
 			  bat "more .env"
+              bat 'docker build -t iitzhakk/dev_proj_4b .'
+			  bat 'docker tag dev_proj_4b:latest dev_proj_4b:env.$BUILD_NUMBER'
+              bat 'docker push -q iitzhakk/dev_proj_4b'			  			  
 			  }
 		  }
     }
-    stage('Deploy Image') {
-      steps{
-        script {
-		  bat 'docker tag dev_proj_4b:latest dev_proj_4b:env.$BUILD_NUMBER'
-		  dockerImage = docker.build registry + ":$BUILD_NUMBER"
-          docker.withRegistry( '', registryCredential ) {
-           dockerImage.push("$BUILD_NUMBER")
-            dockerImage.push('latest')
-
-          }
-        }
-      }
-    }	
     stage('docker-compose up') {
         steps {
 			dir("dev_project_3b"){
 			  bat 'docker-compose up -d'
-
-
-              bat 'docker build -t iitzhakk/dev_proj_4b .'
-			  bat 'docker tag dev_proj_4b:latest dev_proj_4b:env.$BUILD_NUMBER'
-              bat 'docker push -q iitzhakk/dev_proj_4b'			  
           }
 		}
     }
