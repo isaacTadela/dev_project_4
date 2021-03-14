@@ -67,7 +67,8 @@ stages {
     }
 	stage('Deploy HELM') {
         steps {
-			bat "helm install issac ./issac --set image.version=iitzhakk/dev_proj_4b:${env.BUILD_NUMBER} "
+			bat "dir"
+			bat "helm install issac --set image.version=iitzhakk/dev_proj_4b:${env.BUILD_NUMBER} "
 			bat 'minikube service isaac --url > k8s_url.txt'
 			bat "more k8s_url.txt"
 		  }
