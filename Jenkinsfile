@@ -9,12 +9,12 @@ stages {
     }
     stage('rest app') {
         steps {
-			dir("folder"){
-				sh "dev_project_3b"
+			dir("dev_project_3b"){
 				bat 'dir'
+				bat 'start /min python rest_app.py'
 			}
 			bat 'dir'
-            bat 'pip install -r requirements.txt'
+            #bat 'pip install -r requirements.txt'
 			bat 'start /min python dev_project_3b/rest_app.py'
         }
     }
