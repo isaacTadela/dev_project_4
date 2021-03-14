@@ -10,7 +10,6 @@ stages {
     stage('rest app') {
         steps {
 			dir("dev_project_3b"){
-			  bat 'dir'
 			  bat 'start /min python rest_app.py'
 			}
         }
@@ -41,7 +40,7 @@ stages {
 			dir("dev_project_3b"){
 			  bat "echo IMAGE_TAG=${env.BUILD_NUMBER}>.env"
 			  bat "more .env"
-              bat 'docker push -q iitzhakk/dev_proj_3b:${env.BUILD_NUMBER}'
+              bat 'docker push -q iitzhakk/dev_proj_3b:{env.BUILD_NUMBER}'
           }
 		}
     }
