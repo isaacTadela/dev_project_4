@@ -20,6 +20,7 @@ stages {
     stage('testing backend') {
         steps {
 			dir("dev_project_3b"){
+			  sleep(5)
 			  bat 'python backend_testing.py'
           }
 		}
