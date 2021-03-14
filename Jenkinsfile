@@ -41,7 +41,7 @@ stages {
     stage('push image') {
         steps {
 			dir("dev_project_3b"){
-			  dockerImage = docker.build registry + ":$BUILD_NUMBER"
+			  dockerImage = 'iitzhakk/dev_proj_4b' + ":$BUILD_NUMBER"
 			
 			  bat "echo IMAGE_TAG=${env.BUILD_NUMBER}>.env"
 			  bat "more .env"
