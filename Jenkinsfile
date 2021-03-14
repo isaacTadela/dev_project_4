@@ -34,7 +34,7 @@ stages {
     stage('build image') {
         steps {
 			dir("dev_project_3b"){
-              bat 'docker build -t iitzhakk/dev_proj_4b .'
+              bat 'docker build -t iitzhakk/dev_proj_4b${env.BUILD_NUMBER} .'
           }
 		}
     }
@@ -46,6 +46,7 @@ stages {
               bat 'docker push -q iitzhakk/dev_proj_4b'
           }
 		}
+		
     }
     stage('docker-compose up') {
         steps {
