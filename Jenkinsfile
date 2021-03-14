@@ -40,7 +40,7 @@ stages {
 			  bat "echo IMAGE_TAG=${env.BUILD_NUMBER}>.env"
 			  bat "more .env"
               bat "docker build -t dev_proj_4b:${env.BUILD_NUMBER} ."
-              bat 'docker push -q iitzhakk/dev_proj_4b'			  			  
+              bat "docker push -q iitzhakk/dev_proj_4b:${env.BUILD_NUMBER}"
 			  }
 		  }
     }
@@ -64,6 +64,13 @@ stages {
               bat 'docker-compose down -v --rmi all'
           }
 		}
+    }
+	stage('Deploy HELM') {
+        steps {
+			bat "helm install --set image.version=iitzhakk/dev_proj_4b:${env.BUILD_NUMBER} issac"
+			bat 'minikube service isaac --url > k8s_url.txt'
+			bat "more k8s_url.txt"
+		  }
     }
  }
  post {
