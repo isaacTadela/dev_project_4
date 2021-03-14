@@ -12,22 +12,22 @@ stages {
 			bat 'cd dev_project_3b'
 			bat 'dir'
             bat 'pip install -r requirements.txt'
-			bat 'start /min dev_project_3b/python rest_app.py'
+			bat 'start /min python dev_project_3b/rest_app.py'
         }
     }
     stage('testing backend') {
         steps {
-			bat 'dev_project_3b/python backend_testing.py'
+			bat 'python dev_project_3b/backend_testing.py'
         }
     }
     stage('clean environment') {
         steps {
-            bat 'dev_project_3b/python clean_environment.py'
+            bat 'python dev_project_3b/clean_environment.py'
         }
     }
     stage('build image') {
         steps {
-            bat 'docker build -t iitzhakk/dev_proj_3b .'
+            bat 'docker build -t iitzhakk/dev_proj_4b /dev_project_3b'
         }
     }
     stage('push image') {
