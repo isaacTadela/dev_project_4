@@ -39,11 +39,11 @@ stages {
 			dir("dev_project_3b"){
 			  bat "echo IMAGE_TAG=${env.BUILD_NUMBER}>.env"
 			  bat "more .env"
-
-			  dockerImage = docker.build registry + ":$BUILD_NUMBER"
-			  docker.withRegistry('', registryCredential) {
-			  dockerImage.push()
 			  }
+			  
+			dockerImage = docker.build registry + ":$BUILD_NUMBER"
+			docker.withRegistry('', registryCredential) {
+			dockerImage.push()
           }
 		}
     }
