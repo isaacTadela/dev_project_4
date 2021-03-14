@@ -1,4 +1,7 @@
 pipeline {
+environment {
+	dockerImage = ''
+  }
 agent any
 stages {
     stage('pull from git') {
@@ -38,9 +41,11 @@ stages {
     stage('push image') {
         steps {
 			dir("dev_project_3b"){
+			  dockerImage = docker.build registry + ":$BUILD_NUMBER"
+			
 			  bat "echo IMAGE_TAG=${env.BUILD_NUMBER}>.env"
 			  bat "more .env"
-              bat 'docker push -q iitzhakk/dev_proj_3b'
+              bat 'docker push -q dockerImage'
           }
 		}
     }
