@@ -39,9 +39,9 @@ stages {
 			dir("dev_project_3b"){
 			  bat "echo IMAGE_TAG=${env.BUILD_NUMBER}>.env"
 			  bat "more .env"
-              bat 'docker build -t iitzhakk/dev_proj_4b .'
+              bat 'docker build -t dev_proj_4b${BUILD_NUMBER} --file .'
 			 //bat 'docker tag dev_proj_4b:latest dev_proj_4b:env.$BUILD_NUMBER'
-              bat 'docker push -q iitzhakk/dev_proj_4b'			  			  
+              bat 'docker push -q dev_proj_4b'			  			  
 			  }
 		  }
     }
