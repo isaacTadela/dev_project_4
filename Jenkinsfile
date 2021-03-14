@@ -10,50 +10,61 @@ stages {
     stage('rest app') {
         steps {
 			dir("dev_project_3b"){
-				bat 'dir'
-				bat 'start /min python rest_app.py'
+			  bat 'dir'
+			  bat 'start /min python rest_app.py'
 			}
-			bat 'dir'
-            
-			bat 'start /min python dev_project_3b/rest_app.py'
         }
     }
     stage('testing backend') {
         steps {
-			bat 'python dev_project_3b/backend_testing.py'
-        }
+			dir("dev_project_3b"){
+			  bat 'python backend_testing.py'
+          }
+		}
     }
     stage('clean environment') {
         steps {
-            bat 'python dev_project_3b/clean_environment.py'
-        }
+			dir("dev_project_3b"){
+              bat 'python clean_environment.py'
+          }
+		}
     }
     stage('build image') {
         steps {
-            bat 'docker build -t iitzhakk/dev_proj_4b /dev_project_3b'
-        }
+			dir("dev_project_3b"){
+              bat 'docker build -t iitzhakk/dev_proj_4b /dev_project_3b'
+          }
+		}
     }
     stage('push image') {
         steps {
-			bat "echo IMAGE_TAG=${env.BUILD_NUMBER}>.env"
-			bat "more .env"
-            bat 'docker push -q iitzhakk/dev_proj_3b:${env.BUILD_NUMBER}'
-        }
+			dir("dev_project_3b"){
+			  bat "echo IMAGE_TAG=${env.BUILD_NUMBER}>.env"
+			  bat "more .env"
+              bat 'docker push -q iitzhakk/dev_proj_3b:${env.BUILD_NUMBER}'
+          }
+		}
     }
     stage('docker-compose up') {
         steps {
-			bat 'docker-compose up -d'
-        }
+			dir("dev_project_3b"){
+			  bat 'docker-compose up -d'
+          }
+		}
     }
     stage('testing docker-compose') {
         steps {
-            bat 'python docker_backend_testing.py'
-        }
+			dir("dev_project_3b"){
+              bat 'python docker_backend_testing.py'
+          }
+		}
     }
     stage('clean docker environment') {
         steps {
-            bat 'docker-compose down -v --rmi all'
-        }
+			dir("dev_project_3b"){
+              bat 'docker-compose down -v --rmi all'
+          }
+		}
     }
  }
  post {
