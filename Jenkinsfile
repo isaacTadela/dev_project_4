@@ -1,7 +1,9 @@
 pipeline {
 environment {
+	registry = "iitzhakk/dev_proj_4b"
+	registryCredential = 'docker_hub'
 	dockerImage = ''
-  }
+	}
 agent any
 stages {
     stage('pull from git') {
@@ -32,28 +34,27 @@ stages {
           }
 		}
     }
-    stage('build image') {
+    stage('build and push image') {
         steps {
 			dir("dev_project_3b"){
 			  bat "echo IMAGE_TAG=${env.BUILD_NUMBER}>.env"
 			  bat "more .env"
-              bat 'docker build -t dev_proj_4b .'
+
+			  dockerImage = docker.build registry + ":$BUILD_NUMBER"
+			  docker.withRegistry('', registryCredential) {
+			  dockerImage.push()
           }
 		}
-    }
-    stage('push image') {
-        steps {
-			dir("dev_project_3b"){
-			  bat 'docker tag dev_proj_4b:latest dev_proj_4b:$BUILD_NUMBER'
-              bat 'docker push -q iitzhakk/dev_proj_4b'
-          }
-		}
-		
     }
     stage('docker-compose up') {
         steps {
 			dir("dev_project_3b"){
 			  bat 'docker-compose up -d'
+
+
+              bat 'docker build -t iitzhakk/dev_proj_4b .'
+			  bat 'docker tag dev_proj_4b:latest dev_proj_4b:$BUILD_NUMBER'
+              bat 'docker push -q iitzhakk/dev_proj_4b'			  
           }
 		}
     }
