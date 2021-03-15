@@ -77,6 +77,7 @@ stages {
     }
 	stage('clean HELM') {
         steps {
+			sleep(500)
 			bat 'python k8s_backend_testing.py'
 			sleep(500)
           }
