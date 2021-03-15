@@ -71,6 +71,7 @@ stages {
 			bat "minikube start"
 			bat "helm install --set image.tag=80 isaac ./isaac"
 			bat "start /B minikube service isaac > k8s_url.txt"
+			sleep(10)
 			bat "more k8s_url.txt"
 		  }
     }
