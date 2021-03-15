@@ -5,7 +5,7 @@
 replicaCount: 5
 
 image:
-  repository: iitzhakk/dev_proj_3b
+  repository: iitzhakk/dev_proj_4b
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
