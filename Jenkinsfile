@@ -69,7 +69,7 @@ stages {
 	stage('Deploy HELM') {
         steps {
 			bat "minikube start"
-			bat "helm install --set image.tag=80 isaac ./isaac"
+			bat "helm install --set image.tag=${env.BUILD_NUMBER} isaac ./isaac"
 			bat "start /B minikube service isaac --url > k8s_url.txt"
 			sleep(20)
 			bat "more k8s_url.txt"
@@ -78,12 +78,17 @@ stages {
 	stage('clean HELM') {
         steps {
 			bat 'python k8s_backend_testing.py'
-			sleep(120)
+			sleep(500)
           }
     }
  }
  post {
-        
+        always {
+			bat 'helm delete isaac'
+			bat 'minikube delete'
+            echo 'One way or another, I have finished'
+			bat 'git.exe clean -ffdx' /* clean up our workspace */
+        }
         success {
             echo 'I succeeded!'
         }
