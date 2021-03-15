@@ -74,6 +74,12 @@ stages {
 			bat "more k8s_url.txt"
 		  }
     }
+	stage('clean HELM') {
+        steps {
+			bat 'minikube delete'
+          }
+		}
+    }
  }
  post {
         always {
