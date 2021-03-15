@@ -11,10 +11,8 @@ for line in lines:
         url = line
         break
 
-print(url)
-
 try:
-    print(f'{url}')
+    print(f'url is: {url}')
 
     res = requests.get(f'{url}')
     print("get response for home page -", res.text)
