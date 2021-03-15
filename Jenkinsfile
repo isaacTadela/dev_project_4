@@ -70,20 +70,20 @@ stages {
         steps {
 			bat "minikube start"
 			bat "helm install --set image.tag=80 isaac ./isaac"
-			bat "start /B minikube service isaac > k8s_url.txt"
-			sleep(10)
+			bat "start /B minikube service isaac --url > k8s_url.txt"
+			sleep(20)
 			bat "more k8s_url.txt"
 		  }
     }
 	stage('clean HELM') {
         steps {
-			bat 'minikube delete'
+			bat "more k8s_url.txt"
           }
     }
  }
  post {
         always {
-			bat 'helm uninstall isaac'
+			bat 'helm delete isaac'
 			bat 'minikube delete'
             echo 'One way or another, I have finished'
 			bat 'git.exe clean -ffdx' /* clean up our workspace */
