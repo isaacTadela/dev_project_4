@@ -69,7 +69,7 @@ stages {
 	stage('Deploy HELM') {
         steps {
 			bat "minikube start"
-			bat "helm install --set image.version=iitzhakk/dev_proj_4b:${env.BUILD_NUMBER} isaac ./isaac"
+			bat "helm install --set image.tag=80 isaac ./isaac"
 			bat "start /B minikube service isaac > k8s_url.txt"
 			bat "more k8s_url.txt"
 		  }
@@ -82,6 +82,8 @@ stages {
  }
  post {
         always {
+			bat 'helm uninstall isaac'
+			bat 'minikube delete'
             echo 'One way or another, I have finished'
 			bat 'git.exe clean -ffdx' /* clean up our workspace */
         }
