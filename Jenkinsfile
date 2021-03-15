@@ -78,7 +78,6 @@ stages {
         steps {
 			bat 'minikube delete'
           }
-		}
     }
  }
  post {
