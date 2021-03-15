@@ -70,7 +70,7 @@ stages {
         steps {
 			bat "minikube start"
 			bat "helm install --set image.version=iitzhakk/dev_proj_4b:${env.BUILD_NUMBER} isaac ./isaac"
-			bat 'minikube service isaac --url > k8s_url.txt'
+			bat "start /B minikube service isaac > k8s_url.txt"
 			bat "more k8s_url.txt"
 		  }
     }
