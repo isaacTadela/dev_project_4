@@ -78,6 +78,8 @@ stages {
 	stage('clean HELM') {
         steps {
 			bat "more k8s_url.txt"
+			bat 'python k8s_backend_testing.py'
+			sleep(120)
           }
     }
  }
