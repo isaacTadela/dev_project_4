@@ -77,13 +77,18 @@ stages {
     }
 	stage('clean HELM') {
         steps {
-			sleep(500)
+			sleep(100)
 			bat 'python k8s_backend_testing.py'
-			sleep(500)
+			bat 'helm delete isaac'
+			bat 'minikube delete'
           }
     }
  }
  post {
+		always {
+            echo 'One way or another, I have finished'
+			bat 'git.exe clean -ffdx' /* clean up our workspace */
+        }
         success {
             echo 'I succeeded!'
         }
