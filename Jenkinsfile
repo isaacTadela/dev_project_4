@@ -83,12 +83,7 @@ stages {
     }
  }
  post {
-        always {
-			bat 'helm delete isaac'
-			bat 'minikube delete'
-            echo 'One way or another, I have finished'
-			bat 'git.exe clean -ffdx' /* clean up our workspace */
-        }
+        
         success {
             echo 'I succeeded!'
         }
