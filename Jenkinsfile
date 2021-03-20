@@ -75,18 +75,21 @@ stages {
 			bat "more k8s_url.txt"
 		  }
     }
-	stage('clean HELM') {
+	stage('test HELM') {
         steps {
 			sleep(100)
 			bat 'python k8s_backend_testing.py'
-			bat 'helm delete isaac'
-			bat 'minikube delete'
+			
           }
     }
  }
  post {
 		always {
-            echo 'One way or another, I have finished'
+		/* clean HELM */
+			bat 'helm delete isaac'
+			bat 'minikube delete'
+            
+			echo 'One way or another, I have finished'
 			bat 'git.exe clean -ffdx' /* clean up our workspace */
         }
         success {
